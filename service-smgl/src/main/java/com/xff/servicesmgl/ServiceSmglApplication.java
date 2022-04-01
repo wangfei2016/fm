@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@MapperScan(basePackages = {"com.xff.mybatistest.*.dao"})
+@MapperScan(basePackages = {"com.xff.servicesmgl.dao"})
 public class ServiceSmglApplication {
 
     public static void main(String[] args) {
