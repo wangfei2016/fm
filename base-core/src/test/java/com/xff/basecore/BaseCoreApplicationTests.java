@@ -1,10 +1,10 @@
-package com.xff.fm;
+package com.xff.basecore;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FmApplicationTests {
+class BaseCoreApplicationTests {
 
     @Test
     void contextLoads() {
