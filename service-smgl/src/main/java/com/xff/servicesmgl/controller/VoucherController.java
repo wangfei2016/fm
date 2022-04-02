@@ -1,6 +1,5 @@
 package com.xff.servicesmgl.controller;
 
-import com.xff.basecore.masterslave.DataSourceKey;
 import com.xff.servicesmgl.bean.Voucher;
 import com.xff.servicesmgl.dao.VoucherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +29,11 @@ public class VoucherController {
     @PostMapping("/addSt")
     public int addSt(@RequestParam String stName, @RequestParam String stClass) {
         Voucher st = new Voucher();
-        st.setId(UUID.randomUUID().toString());
-        st.setStNo("1010000");
-        st.setStYear("1");
-        st.setStName(stName);
-        st.setStClass(stClass);
+//        st.setId(UUID.randomUUID().toString());
+//        st.setStNo("1010000");
+//        st.setStYear("1");
+//        st.setStName(stName);
+//        st.setStClass(stClass);
         return mapper.insert(st);
     }
 
@@ -43,7 +42,7 @@ public class VoucherController {
         return mapper.selectAll();
     }
 
-    @Value("${server.port}")
+    @Value("${spring.datasource.hikari.master.name}")
     private String configInfo;
 
     @GetMapping("/test")

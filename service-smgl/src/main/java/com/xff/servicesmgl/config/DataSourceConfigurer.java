@@ -1,5 +1,7 @@
-package com.xff.basecore.masterslave;
+package com.xff.servicesmgl.config;
 
+import com.xff.basecore.masterslave.DataSourceKey;
+import com.xff.servicesmgl.common.DynamicRoutingDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -73,7 +75,7 @@ public class DataSourceConfigurer {
     public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // Here to config mybatis
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.xff.*.*.dao");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.xff.servicesmgl.dao");
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath" +
                 ":mapper/*.xml"));
         // Here is very important, if don't config this, will can't switch datasource
