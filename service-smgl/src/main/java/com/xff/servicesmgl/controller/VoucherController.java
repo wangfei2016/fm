@@ -29,11 +29,11 @@ public class VoucherController {
     @PostMapping("/addSt")
     public int addSt(@RequestParam String stName, @RequestParam String stClass) {
         Voucher st = new Voucher();
-//        st.setId(UUID.randomUUID().toString());
-//        st.setStNo("1010000");
-//        st.setStYear("1");
-//        st.setStName(stName);
-//        st.setStClass(stClass);
+        st.setId(UUID.randomUUID().toString());
+        st.setStNo("1010000");
+        st.setStYear("1");
+        st.setStName(stName);
+        st.setStClass(stClass);
         return mapper.insert(st);
     }
 
@@ -42,7 +42,7 @@ public class VoucherController {
         return mapper.selectAll();
     }
 
-    @Value("${spring.datasource.hikari.master.name}")
+    @Value("${spring.datasource.master.url}")
     private String configInfo;
 
     @GetMapping("/test")
