@@ -67,6 +67,17 @@ public class DataSourceConfigurer {
     }
 
     /**
+     * 配置多数据源导致下划线命名映射为驼峰失效，需要在下面SqlSessionFactory方法中引入
+     *
+     * @return 配置
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration globalConfiguration() {
+        return new org.apache.ibatis.session.Configuration();
+    }
+
+    /**
      * Sql session factory bean.
      *
      * @return the sql session factory bean
@@ -81,6 +92,8 @@ public class DataSourceConfigurer {
         // Here is very important, if don't config this, will can't switch datasource
         // put all datasource into SqlSessionFactoryBean, then will autoconfig SqlSessionFactory
         sqlSessionFactoryBean.setDataSource(dynamicDataSource(master(), slave()));
+        // 这里将下划线映射为驼峰的配置引入
+        sqlSessionFactoryBean.setConfiguration(globalConfiguration());
         return sqlSessionFactoryBean;
     }
 

@@ -1,7 +1,10 @@
 package com.xff.servicesmgl.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xff.servicesmgl.bean.Voucher;
 import com.xff.servicesmgl.dao.VoucherMapper;
+import com.xff.servicesmgl.feign.PostgresFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -38,16 +42,30 @@ public class VoucherController {
     }
 
     @GetMapping("/getListByCondition")
-    public List<Voucher> getList() {
-        return mapper.selectAll();
+    public PageInfo<Voucher> getList() {
+        PageHelper.startPage(1, 10);
+        return new PageInfo<>(mapper.queryListByCondition());
     }
 
-    @Value("${spring.datasource.master.url}")
+    @Value("${spring.datasource.hikari.master.jdbc-url}")
     private String configInfo;
 
     @GetMapping("/test")
     public String test() {
         return this.configInfo;
+    }
+
+    @PostMapping("/copyTab")
+    public void copyTab(@RequestParam String tbName, @RequestParam String targetTbName) {
+        mapper.copyTab(tbName, targetTbName);
+    }
+
+    @Autowired
+    private PostgresFeignClient postgresFeignClient;
+
+    @GetMapping("/getVoucherListForPg")
+    public List<Map<Object, Object>> getVoucherListForPg() {
+        return postgresFeignClient.getVoucherListForPg();
     }
 
 }
