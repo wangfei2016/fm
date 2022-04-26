@@ -3,6 +3,7 @@ package com.xff.servicesmep.controller;
 import com.xff.servicesmep.bean.Voucher;
 import com.xff.servicesmep.dao.VoucherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,14 @@ public class VoucherController {
     @GetMapping("/selectAll")
     public List<Voucher> getList() {
         return mapper.selectAll();
+    }
+
+    @Value("${server.port}")
+    private String serverPort;
+
+    @GetMapping("/getServerPort")
+    public String getServerPort() {
+        return serverPort;
     }
 
 }

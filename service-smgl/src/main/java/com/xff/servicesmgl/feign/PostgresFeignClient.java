@@ -3,12 +3,12 @@
  */
 package com.xff.servicesmgl.feign;
 
+import com.xff.servicesmgl.feign.fallback.PostgresFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * PostgresFeignClient.
@@ -17,10 +17,13 @@ import java.util.Map;
  * @since 2022/4/26 19:00
  */
 @Component
-@FeignClient(value = "smep")
+@FeignClient(name = "serviceSmep", fallback = PostgresFeignHystrix.class)
 public interface PostgresFeignClient {
 
     @GetMapping({"/smep/voucher/selectAll"})
-    List<Map<Object, Object>> getVoucherListForPg();
+    List getVoucherListForPg();
+
+    @GetMapping({"/smep/voucher/getServerPort"})
+    String getServerPortForSmep();
 
 }

@@ -64,8 +64,13 @@ public class VoucherController {
     private PostgresFeignClient postgresFeignClient;
 
     @GetMapping("/getVoucherListForPg")
-    public List<Map<Object, Object>> getVoucherListForPg() {
+    public List getVoucherListForPg() {
         return postgresFeignClient.getVoucherListForPg();
+    }
+
+    @GetMapping("/getServerPortForSmep")
+    public String getServerPortForSmep() {
+        return postgresFeignClient.getServerPortForSmep();
     }
 
 }
