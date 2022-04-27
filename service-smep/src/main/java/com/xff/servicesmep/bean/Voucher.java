@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author wang_fei
  * @since 2022/4/6 12:31
  */
-@Table(name = "fr_sxtj")
+@Table(name = "tb_student")
 @Getter
 @Setter
 public class Voucher {
@@ -24,19 +24,19 @@ public class Voucher {
     @Column(name = "id")
     private String id;
 
-    @Column(name = "xzqhbm")
-    private String xzqhbm;
+    @Column(name = "st_no")
+    private String stNo;
 
-    @Column(name = "sxmc")
-    private String sxmc;
+    @Column(name = "st_year")
+    private String stYear;
 
-    @Column(name = "sxlx")
-    private String sxlx;
+    @Column(name = "st_class")
+    private String stClass;
 
-    @Column(name = "sxsl")
-    private String sxsl;
+    @Column(name = "st_name")
+    private String stName;
 
-    @Column(name = "pjblsc")
-    private String pjblsc;
+    @Column(name = "st_sex")
+    private String stSex;
 
 }

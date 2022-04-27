@@ -13,7 +13,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableCircuitBreaker
 @EnableScheduling
 @EnableAsync
 @MapperScan(basePackages = {"com.xff.servicesmgl.dao"})

@@ -1,5 +1,7 @@
 package com.xff.servicesmep.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xff.servicesmep.bean.Voucher;
 import com.xff.servicesmep.dao.VoucherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,9 @@ public class VoucherController {
     private VoucherMapper mapper;
 
     @GetMapping("/selectAll")
-    public List<Voucher> getList() {
-        return mapper.selectAll();
+    public PageInfo getList() {
+        PageHelper.startPage(1, 100000);
+        return new PageInfo(mapper.selectAll());
     }
 
     @Value("${server.port}")

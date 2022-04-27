@@ -1,5 +1,6 @@
 package com.xff.servicesmgl.feign.fallback;
 
+import com.github.pagehelper.PageInfo;
 import com.xff.servicesmgl.feign.PostgresFeignClient;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public class PostgresFeignHystrix implements PostgresFeignClient {
 
     @Override
-    public List getVoucherListForPg() {
-        return Arrays.asList("getVoucherListForPg:服务降级");
+    public PageInfo getVoucherListForPg() {
+        return  new PageInfo<>(Arrays.asList("getVoucherListForPg:服务降级"));
     }
 
     @Override

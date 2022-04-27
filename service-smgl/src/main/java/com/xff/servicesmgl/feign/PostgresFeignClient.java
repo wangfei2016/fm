@@ -3,6 +3,7 @@
  */
 package com.xff.servicesmgl.feign;
 
+import com.github.pagehelper.PageInfo;
 import com.xff.servicesmgl.feign.fallback.PostgresFeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ import java.util.List;
 public interface PostgresFeignClient {
 
     @GetMapping({"/smep/voucher/selectAll"})
-    List getVoucherListForPg();
+    PageInfo getVoucherListForPg();
 
     @GetMapping({"/smep/voucher/getServerPort"})
     String getServerPortForSmep();
