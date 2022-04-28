@@ -1,6 +1,5 @@
-package com.xff.servicesmgl.common;
+package com.xff.basecore.masterslave;
 
-import com.xff.basecore.masterslave.DynamicDataSourceContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -13,7 +12,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(DynamicRoutingDataSource.class);
 
     /**
      * Set dynamic DataSource to Application Context
@@ -26,4 +25,3 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
         return DynamicDataSourceContextHolder.getDataSource();
     }
 }
-

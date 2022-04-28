@@ -1,5 +1,7 @@
 package com.xff.basecore.masterslave;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * DynamicDataSourceContextHolder.
  *
@@ -25,7 +27,8 @@ public class DynamicDataSourceContextHolder {
      * @return
      */
     public static String getDataSource() {
-        return contextHolder.get();
+        String strDataSource = contextHolder.get();
+        return StringUtils.isBlank(strDataSource) ? "default" : strDataSource;
     }
 
     /**

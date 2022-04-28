@@ -1,13 +1,16 @@
 package com.xff.servicesmgl.config;
 
 import com.xff.basecore.masterslave.DataSourceKey;
-import com.xff.servicesmgl.common.DynamicRoutingDataSource;
+import com.xff.basecore.masterslave.DynamicRoutingDataSource;
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -23,7 +26,12 @@ import java.util.Map;
  * @since 2022/3/24 8:54
  */
 @Configuration
+@Import({com.xff.basecore.masterslave.DynamicDataSourceAspect.class,
+        com.xff.basecore.decollat.MybatisStatementInterceptor.class})
 public class DataSourceConfigurer {
+
+    @Autowired
+    private com.xff.basecore.decollat.MybatisStatementInterceptor mybatisStatementInterceptor;
 
     /**
      * master DataSource
@@ -67,7 +75,7 @@ public class DataSourceConfigurer {
     }
 
     /**
-     * 配置多数据源导致下划线命名映射为驼峰失效，需要在下面SqlSessionFactory方法中引入
+     * 配置多数据源导致下划线命名映射为驼峰失效，需要在下面sqlSessionFactoryBean方法中引入
      *
      * @return 配置
      */
@@ -89,11 +97,12 @@ public class DataSourceConfigurer {
         sqlSessionFactoryBean.setTypeAliasesPackage("com.xff.servicesmgl.dao");
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath" +
                 ":mapper/*.xml"));
-        // Here is very important, if don't config this, will can't switch datasource
         // put all datasource into SqlSessionFactoryBean, then will autoconfig SqlSessionFactory
         sqlSessionFactoryBean.setDataSource(dynamicDataSource(master(), slave()));
-        // 这里将下划线映射为驼峰的配置引入
+        // 引入配置(下划线映射为驼峰等)
         sqlSessionFactoryBean.setConfiguration(globalConfiguration());
+        // 引入拦截器插件(mybatisStatementInterceptor)
+        sqlSessionFactoryBean.setPlugins(new Interceptor[]{mybatisStatementInterceptor});
         return sqlSessionFactoryBean;
     }
 

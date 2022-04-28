@@ -1,5 +1,7 @@
 package com.xff.servicesmgl.bean;
 
+import com.xff.basecore.decollat.TableShard;
+import com.xff.servicesmgl.common.DateTableShardByTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "tb_student")
 @Getter
 @Setter
+@TableShard(shardStrategy = DateTableShardByTime.class)
 public class Voucher {
 
     private static final long serialVersionUID = 1L;
