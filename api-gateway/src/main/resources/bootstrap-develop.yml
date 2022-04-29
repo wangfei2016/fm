@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: apiGateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        file-extension: properties
+        server-addr: 182.61.150.145:8848
+        group: DEFAULT_GROUP
+        password: nacos
+        username: nacos
