@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excel-config>
+    <!-- voucher导入 -->
+    <excel-model id="voucherImport" startRow="1"
+                 importPO="com.xff.servicesmgl.po.VoucherImportPO"
+                 importClass="excelImportVoucher" edrjgBt="stName" edrjgMkbm="voucher">
+        <excel-column index="0" name="stNo" chineseName="xuehao">
+            <length>10</length>
+            <required>true</required>
+        </excel-column>
+        <excel-column index="1" name="stYear" chineseName="nianji">
+            <length>5</length>
+        </excel-column>
+        <excel-column index="2" name="stClass" chineseName="banji">
+            <length>5</length>
+        </excel-column>
+        <excel-column index="3" name="stName" chineseName="xingming">
+            <length>20</length>
+        </excel-column>
+        <excel-column index="4" name="stSex" chineseName="xingbie">
+            <length>1</length>
+        </excel-column>
+    </excel-model>
+
+</excel-config>

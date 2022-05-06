@@ -35,9 +35,11 @@ public abstract class ExcelImportComp {
         synchEdrjg(param, errorMsgMap);
         // 3、校验后把不合法记录从数据集中剔除
         Iterator<Map.Entry<Integer, Object>> it = param.getDataMap().entrySet().iterator();
-        while (it.hasNext()) {
-            if (errorMsgMap.containsKey(it.next().getKey())) {
-                it.remove();
+        if (null != errorMsgMap && errorMsgMap.size() > 0) {
+            while (it.hasNext()) {
+                if (errorMsgMap.containsKey(it.next().getKey())) {
+                    it.remove();
+                }
             }
         }
         // 4、再执行导入

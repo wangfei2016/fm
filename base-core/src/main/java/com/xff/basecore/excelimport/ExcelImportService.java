@@ -2,7 +2,7 @@ package com.xff.basecore.excelimport;
 
 import com.xff.basecore.common.constant.CommonConstant;
 import com.xff.basecore.common.swagger.SwaggerResultUtil;
-import com.xff.basecore.common.util.SpringContextUtil;
+import com.xff.basecore.common.util.ApplicationContextGetBeanHelper;
 import com.xff.basecore.excelimport.config.ExcelColumn;
 import com.xff.basecore.excelimport.config.ExcelConfigManager;
 import com.xff.basecore.excelimport.config.ExcelModel;
@@ -131,7 +131,7 @@ public class ExcelImportService {
                     return SwaggerResultUtil.resultError(500, "Excel模板没有数据或填写格式不对，导入失败！");
                 }
                 //Excel导入组件执行导入操作
-                Object actor = SpringContextUtil.getBean(param.getImportClass());
+                Object actor = ApplicationContextGetBeanHelper.getBean(param.getImportClass());
                 if (null != actor) {
                     ExcelImportComp component = (ExcelImportComp) actor;
                     param.setExcelImportId(excelImportId);

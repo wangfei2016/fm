@@ -2,6 +2,9 @@ package com.xff.servicesmgl.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xff.basecore.common.constant.CommonConstant;
+import com.xff.basecore.common.swagger.SwaggerResultUtil;
+import com.xff.basecore.excelimport.ExcelImportService;
 import com.xff.servicesmgl.bean.Voucher;
 import com.xff.servicesmgl.dao.VoucherMapper;
 import com.xff.servicesmgl.feign.PostgresFeignClient;
@@ -9,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +31,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/voucher")
 public class VoucherController {
+
+    @Value("${spring.datasource.hikari.master.jdbc-url}")
+    private String configInfo;
+
+    @GetMapping("/test")
+    public String test() {
+        return this.configInfo;
+    }
 
     @Autowired
     private VoucherMapper mapper;
@@ -47,17 +60,17 @@ public class VoucherController {
         return new PageInfo<>(mapper.queryListByCondition());
     }
 
-    @Value("${spring.datasource.hikari.master.jdbc-url}")
-    private String configInfo;
-
-    @GetMapping("/test")
-    public String test() {
-        return this.configInfo;
-    }
-
     @PostMapping("/copyTab")
     public void copyTab(@RequestParam String tbName, @RequestParam String targetTbName) {
         mapper.copyTab(tbName, targetTbName);
+    }
+
+    @Autowired
+    private ExcelImportService excelImportService;
+
+    @PostMapping("/importExcelVoucher")
+    public SwaggerResultUtil<String> importExcelVoucher(@RequestBody MultipartFile file) {
+        return excelImportService.excelImport("voucherImport", file, "AAAAA");
     }
 
     @Autowired
