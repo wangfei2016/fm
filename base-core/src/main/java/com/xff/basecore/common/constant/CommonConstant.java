@@ -17,8 +17,12 @@ public class CommonConstant {
      */
     public static final String STR_N = "N";
     /**
-     * Excel导入执行标识（后缀是excelImportId+authorityId）
+     * Excel导入结果key
      */
-    public static final String EXCEL_IMPORT_DOING = "dmp:excelimport:zxbs_";
+    public static final String EXCEL_IMPORT_EDRJG = "fm:excelimport:edrjg";
+    /**
+     * Excel导入执行key（后缀是excelImportId+authorityId）
+     */
+    public static final String EXCEL_IMPORT_DOING = "fm:excelimport:zxbs_";
 
 }

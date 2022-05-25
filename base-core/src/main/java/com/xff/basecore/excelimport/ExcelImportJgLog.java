@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * Excel导入结果日志.
  *
@@ -12,7 +14,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ExcelImportJgLog {
+public class ExcelImportJgLog implements Serializable {
+
+    /**
+     * 序列化版本号
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * 导入行号

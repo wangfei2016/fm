@@ -1,5 +1,6 @@
 package com.xff.basecore.excelimport;
 
+import com.alibaba.fastjson.JSON;
 import com.xff.basecore.common.constant.CommonConstant;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public abstract class ExcelImportComp {
         // 6、导入后同步Excel导入结果对象
         synchEdrjg(param, importResult.getErrorMsgMap());
         // 7、最后保存导入结果
+        redisTemplate.opsForHash().put(CommonConstant.EXCEL_IMPORT_EDRJG, param.getAuthorityId(),
+                JSON.toJSONString(param.getEdrjgList()));
 //        edrjgService.batchAddEdrjg(param.getLoginUser(), param.getEdrjgList());
         // 9、清除导入执行标识
         redisTemplate.delete(CommonConstant.EXCEL_IMPORT_DOING + param.getExcelImportId() + param.getAuthorityId());

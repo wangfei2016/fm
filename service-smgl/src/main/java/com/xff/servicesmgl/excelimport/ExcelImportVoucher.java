@@ -42,6 +42,7 @@ public class ExcelImportVoucher extends ExcelImportComp {
                 VoucherImportPO po = (VoucherImportPO) entry.getValue();
                 Voucher voucher = new Voucher();
                 BeanUtils.copyProperties(po, voucher);
+                voucher.setStSex("女".equals(voucher.getStSex()) ? "0" : "1");
                 voucher.setId(UUID.randomUUID().toString());
                 int iKey = voucherMapper.insert(voucher);
                 if (iKey == 1) {

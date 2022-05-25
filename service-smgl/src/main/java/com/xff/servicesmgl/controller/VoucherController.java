@@ -2,17 +2,16 @@ package com.xff.servicesmgl.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xff.basecore.common.swagger.SwaggerResultUtil;
+import com.xff.basecore.excelimport.ExcelImportService;
 import com.xff.servicesmgl.bean.Voucher;
 import com.xff.servicesmgl.dao.VoucherMapper;
 import com.xff.servicesmgl.feign.PostgresFeignClient;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -60,6 +59,14 @@ public class VoucherController {
     public PageInfo<Voucher> getList() {
         PageHelper.startPage(1, 10);
         return new PageInfo<>(mapper.queryListByCondition());
+    }
+
+    @Autowired
+    private ExcelImportService excelImportService;
+
+    @PostMapping("/importExcelVoucher")
+    public SwaggerResultUtil<String> importExcelVoucher(@RequestBody MultipartFile file) {
+        return excelImportService.excelImport("voucherImport", file, "AAAAA");
     }
 
     @Autowired
