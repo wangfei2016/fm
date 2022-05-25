@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.xff.servicesmgl.bean.Voucher;
 import com.xff.servicesmgl.dao.VoucherMapper;
 import com.xff.servicesmgl.feign.PostgresFeignClient;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,22 @@ import java.util.UUID;
 @RequestMapping("/voucher")
 public class VoucherController {
 
+    @Value("${spring.datasource.hikari.master.jdbc-url}")
+    private String configInfo;
+
+    @GetMapping("/test")
+    public String test() {
+        return this.configInfo;
+    }
+
     @Autowired
     private VoucherMapper mapper;
+
+    @PostMapping("/createTable")
+    public void createTable(@ApiParam(name = "tbName", value = "新建表名", required = true)  @RequestParam String tbName,
+                            @ApiParam(name = "copyTbName", value = "拷贝表名", required = true)  @RequestParam String copyTbName) {
+        mapper.createTable(tbName.toUpperCase(), copyTbName);
+    }
 
     @PostMapping("/addSt")
     public int addSt(@RequestParam String stName, @RequestParam String stClass) {
@@ -45,19 +60,6 @@ public class VoucherController {
     public PageInfo<Voucher> getList() {
         PageHelper.startPage(1, 10);
         return new PageInfo<>(mapper.queryListByCondition());
-    }
-
-    @Value("${spring.datasource.hikari.master.jdbc-url}")
-    private String configInfo;
-
-    @GetMapping("/test")
-    public String test() {
-        return this.configInfo;
-    }
-
-    @PostMapping("/copyTab")
-    public void copyTab(@RequestParam String tbName, @RequestParam String targetTbName) {
-        mapper.copyTab(tbName, targetTbName);
     }
 
     @Autowired

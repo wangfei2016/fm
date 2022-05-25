@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xff.servicesmgl.dao.VoucherMapper">
 
+    <insert id="createTable" statementType="CALLABLE">
+		{call p_create_table(
+		#{tbName,mode=IN,jdbcType=VARCHAR},#{copyTbName,mode=IN,jdbcType=VARCHAR}
+		)}
+	</insert>
+
     <select id="queryListByCondition" resultType="com.xff.servicesmgl.bean.Voucher">
         select *
         from tb_student T1
         where 1 = 1
     </select>
-
-    <insert id="copyTab" statementType="CALLABLE">
-		{call p_create_table(
-		#{tbName,mode=IN,jdbcType=VARCHAR},#{targetTbName,mode=IN,jdbcType=VARCHAR}
-		)}
-	</insert>
 
 </mapper>

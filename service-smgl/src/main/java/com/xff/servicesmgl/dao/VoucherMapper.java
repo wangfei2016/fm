@@ -20,6 +20,6 @@ public interface VoucherMapper extends Mapper<Voucher> {
 
     List<Voucher> queryListByCondition();
 
-    void copyTab(@Param("tbName") String tbName, @Param("targetTbName") String targetTbName);
+    void createTable(@Param("tbName") String tbName, @Param("copyTbName") String copyTbName);
 
 }
