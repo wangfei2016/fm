@@ -27,7 +27,8 @@ import java.util.Map;
  */
 @Configuration
 @Import({com.xff.basecore.masterslave.DynamicDataSourceAspect.class,
-        com.xff.basecore.decollat.MybatisStatementInterceptor.class})
+        com.xff.basecore.decollat.MybatisStatementInterceptor.class,
+        com.xff.basecore.common.util.ApplicationContextGetBeanHelper.class})
 public class DataSourceConfigurer {
 
     @Autowired

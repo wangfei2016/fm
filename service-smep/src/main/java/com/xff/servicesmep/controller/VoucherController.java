@@ -27,7 +27,7 @@ public class VoucherController {
 
     @GetMapping("/selectAll")
     public PageInfo getList() {
-        PageHelper.startPage(1, 100000);
+        PageHelper.startPage(1, 10000);
         return new PageInfo(mapper.selectAll());
     }
 
