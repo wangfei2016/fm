@@ -20,7 +20,7 @@ public class ApplicationContextGetBeanHelper implements ApplicationContextAware 
             throw new IllegalArgumentException("className为空");
         }
 
-        String beanName = null;
+        String beanName;
         if(className.length() > 1) {
             beanName = className.substring(0, 1).toLowerCase() + className.substring(1);
         } else {
